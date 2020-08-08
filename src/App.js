@@ -14,13 +14,14 @@ class App extends Component {
       currentItem: {
         text: '',
         key: ''
-      }
+      },
     }
     this.handleInput = this.handleInput.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.setUpdate = this.setUpdate.bind(this);
   }
+
   handleInput(e) {
     this.setState({
       currentItem: {
@@ -51,8 +52,8 @@ class App extends Component {
   }
   setUpdate(text, key) {
     const items = this.state.items;
-    items.map(item => {
-      if (item.key === key){
+    items.forEach(item => { 
+      if (item.key === key) {
         item.text = text;
       }
     });
