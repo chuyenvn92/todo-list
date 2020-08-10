@@ -21,6 +21,14 @@ class App extends Component {
     this.deleteItem = this.deleteItem.bind(this);
     this.setUpdate = this.setUpdate.bind(this);
   }
+  componentWillMount() {
+    if (localStorage && localStorage.getItem('items')) {
+      var items = JSON.parse(localStorage.getItem('items'));
+      this.setState({
+        items: items
+      })
+    }
+  }
 
   handleInput(e) {
     this.setState({
@@ -42,13 +50,15 @@ class App extends Component {
           key: ''
         }
       })
-    }
+      localStorage.setItem('items', JSON.stringify(newItems))
+    };
   }
   deleteItem(key) {
     const filteredItems = this.state.items.filter(item => item.key !== key);
     this.setState({
       items: filteredItems
     });
+    localStorage.setItem('items', JSON.stringify(filteredItems))
   }
   setUpdate(text, key) {
     const items = this.state.items;
@@ -59,7 +69,8 @@ class App extends Component {
     });
     this.setState({
       items: items
-    })
+    });
+    localStorage.setItem('items', JSON.stringify(items))
   }
   render() {
     return (
